@@ -1,17 +1,16 @@
 services:
   db:
-    image: mysql:8.0
-    container_name: mysql
-    hostname: mysql
+    image: postgres:16.0                              # Imagem oficial do PostGres (versão 16.0)
+    container_name: nest_crud_pg
     restart: unless-stopped
     environment:
-      MYSQL_ROOT_PASSWORD: rootpassword
-      MYSQL_DATABASE: nest_crud
-      MYSQL_USER: nest
-      MYSQL_PASSWORD: nest
+      POSTGRES_DB: nest_crud                          # Nome do banco de dados que será criado
+      POSTGRES_USER: nest                             # Usuário adicional
+      POSTGRES_PASSWORD: nest                         # Senha do usuário adicional
     ports:
-      - "3306:3306"
+      - "5432:5432"                                   # Mapeando a porta 5432 para acesso ao PostGres
     volumes:
-      - mysql_data:/var/lib/mysql
+      - pgdata_data:/var/lib/postgresql/data          # Volume persistente para dados do PostGres
+
 volumes:
-  mysql_data:
+  pgdata_data:                                         # Volume para armazenar dados do PostGres
